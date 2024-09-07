@@ -15,7 +15,6 @@ class ApiManager {
             if (retrofit == null){
 
                 val logging = HttpLoggingInterceptor { Log.e("API_CALL", it) }
-
                 logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
                 var okHttpClient = OkHttpClient.Builder()
