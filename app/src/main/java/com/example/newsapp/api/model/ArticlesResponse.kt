@@ -11,5 +11,5 @@ data class ArticlesResponse(
 	val articles: List<Article?>? = null,
 
 	@field:SerializedName("status")
-	val status: String? = null
-)
+	val status: String? = null,
+) : BaseResponse()

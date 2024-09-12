@@ -9,7 +9,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 class ApiManager {
     companion object {
         const val API_KEY = "12698f6da0d446bf9016c1107f76ac47"
-       private var retrofit : Retrofit? = null
+        const val BASE_URL = "https://newsapi.org"
+        private var retrofit : Retrofit? = null
 
        private fun getInstance() : Retrofit{
             if (retrofit == null){
@@ -21,7 +22,7 @@ class ApiManager {
                     .addInterceptor(logging)
                     .build()
                 retrofit = Retrofit.Builder()
-                    .baseUrl("https://newsapi.org")
+                    .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(okHttpClient)
                     .build()

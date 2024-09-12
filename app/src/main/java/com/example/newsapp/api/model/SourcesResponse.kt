@@ -9,4 +9,4 @@ data class SourcesResponse(
 
 	@field:SerializedName("status")
 	val status: String? = null
-)
+) : BaseResponse()
