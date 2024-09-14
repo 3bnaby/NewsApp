@@ -10,4 +10,12 @@
     <style name="ShapeAppearanceOverlay.App.CornerSize10Percent" parent="">
         <item name="cornerSize">10%</item>
     </style>
+
+    <style name="CustomTabLayout" parent="Widget.Design.TabLayout">
+        <!-- Remove the bottom underline -->
+        <item name="tabIndicatorHeight">0dp</item>
+        <item name="tabIndicatorColor">?attr/colorPrimary</item>
+        <item name="tabSelectedTextColor">?attr/colorPrimary</item>
+        <item name="tabTextColor">?attr/colorAccent</item>
+    </style>
 </resources>

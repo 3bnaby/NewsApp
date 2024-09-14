@@ -10,26 +10,22 @@ class ApiManager {
     companion object {
         const val API_KEY = "12698f6da0d446bf9016c1107f76ac47"
         const val BASE_URL = "https://newsapi.org"
-        private var retrofit : Retrofit? = null
+        private var retrofit: Retrofit? = null
 
-       private fun getInstance() : Retrofit{
-            if (retrofit == null){
+        private fun getInstance(): Retrofit {
+            if (retrofit == null) {
 
                 val logging = HttpLoggingInterceptor { Log.e("API_CALL", it) }
                 logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
-                var okHttpClient = OkHttpClient.Builder()
-                    .addInterceptor(logging)
-                    .build()
-                retrofit = Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .client(okHttpClient)
-                    .build()
+                var okHttpClient = OkHttpClient.Builder().addInterceptor(logging).build()
+                retrofit = Retrofit.Builder().baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create()).client(okHttpClient).build()
             }
             return retrofit!!
         }
-        fun webServices() : WebServices{
+
+        fun webServices(): WebServices {
             return getInstance().create(WebServices::class.java)
 
         }

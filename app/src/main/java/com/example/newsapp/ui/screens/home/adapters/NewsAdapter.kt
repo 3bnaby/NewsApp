@@ -8,11 +8,11 @@ import com.bumptech.glide.Glide
 import com.example.newsapp.api.model.Article
 import com.example.newsapp.databinding.ItemNewsBinding
 
-class NewsAdapter(var articles : List<Article?>) : Adapter<NewsAdapter.NewsViewHolder>() {
+class NewsAdapter(var articles: List<Article?>) : Adapter<NewsAdapter.NewsViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        val binding = ItemNewsBinding.inflate(LayoutInflater.from(parent.context) , parent , false)
+        val binding = ItemNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return NewsViewHolder(binding)
     }
 
@@ -24,12 +24,10 @@ class NewsAdapter(var articles : List<Article?>) : Adapter<NewsAdapter.NewsViewH
         holder.binding.newsDateTextView.text = article?.publishedAt
         holder.binding.newsSourceTextView.text = article?.author
 
-        Glide.with(holder.binding.root)
-            .load(article?.urlToImage)
-            .into(holder.binding.newsImage)
+        Glide.with(holder.binding.root).load(article?.urlToImage).into(holder.binding.newsImage)
     }
 
-    fun submitArticles (newArticle : List<Article?>){
+    fun submitArticles(newArticle: List<Article?>) {
         articles = newArticle
         notifyDataSetChanged()
     }
