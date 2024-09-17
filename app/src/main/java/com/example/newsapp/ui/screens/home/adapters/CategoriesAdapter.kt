@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.newsapp.R
 import com.example.newsapp.databinding.ItemCategoryBinding
 import com.example.newsapp.ui.model.Category
-import com.google.android.material.color.MaterialColors
 
-class CategoriesAdapter(var categories: List<Category>) :
+class CategoriesAdapter(var categories: List<Category> , var onItemClick :(Category) -> Unit) :
     Adapter<CategoriesAdapter.CategoriesViewHolder>() {
 
 
@@ -25,7 +25,22 @@ class CategoriesAdapter(var categories: List<Category>) :
         val category = categories[position]
         holder.binding.itemCategoryImage.setImageResource(category.imageId)
         holder.binding.itemCategoryNameTv.text = category.title
-        holder.binding.itemCategoryContainer.setBackgroundColor(ContextCompat.getColor(holder.binding.root.context , category.backgroundColorId))
+        holder.binding.root.setOnClickListener{
+            onItemClick.invoke(category)
+        }
+
+        holder.binding.itemCategoryContainer.setBackgroundResource(
+            if (category.isLeftSided) R.drawable.left_side_item_category_rounded_corners
+            else R.drawable.right_side_item_category_rounded_corners
+        )
+
+        holder.binding.itemCategoryContainer.setBackgroundColor(
+            ContextCompat.getColor(
+                holder.binding.itemCategoryContainer.context,
+                category.backgroundColorId
+            )
+        )
+
 
     }
 

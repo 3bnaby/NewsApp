@@ -29,6 +29,8 @@
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:listitem="@layout/item_category"
         app:spanCount="2"
+
+
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

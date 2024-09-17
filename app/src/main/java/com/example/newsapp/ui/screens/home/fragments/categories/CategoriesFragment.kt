@@ -11,11 +11,15 @@ import com.example.newsapp.ui.base.BaseFragment
 import com.example.newsapp.ui.model.Category
 import com.example.newsapp.ui.screens.home.adapters.CategoriesAdapter
 
-class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>() {
-    var categoriesAdapter = CategoriesAdapter(Category.categories)
+class CategoriesFragment ( onCategoryClick : (Category) -> Unit) : BaseFragment<FragmentCategoriesBinding>() {
+    var categoriesAdapter = CategoriesAdapter(Category.categories , onCategoryClick)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initRecyclerView ()
 
     }
@@ -26,7 +30,6 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCategoriesBinding.inflate(inflater , container , false)
-
         return binding!!.root
     }
     fun initRecyclerView (){

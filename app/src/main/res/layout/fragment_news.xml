@@ -12,10 +12,12 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:tabMode="scrollable"
-        app:tabTextColor="@color/tab_text_color"
+        app:tabTextColor="@color/green"
         app:tabBackground="@drawable/tab_bg"
         android:layout_marginVertical="20dp"
         style="@style/CustomTabLayout"
+        android:layout_marginHorizontal="15dp"
+        app:tabSelectedTextColor="@color/white"
         />
 
     <include

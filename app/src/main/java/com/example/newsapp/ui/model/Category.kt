@@ -15,42 +15,42 @@ data class Category(
                 id = "sports",
                 imageId = R.drawable.sports,
                 backgroundColorId = R.color.red,
-                title = "sports",
+                title = "Sports",
                 isLeftSided = true
             ),
             Category(
                 id = "entertainment",
                 imageId = R.drawable.entertainment,
                 backgroundColorId = R.color.blue,
-                title = "entertainment",
+                title = "Entertainment",
                 isLeftSided = false
             ),
             Category(
                 id = "health",
                 imageId = R.drawable.health,
                 backgroundColorId = R.color.pink,
-                title = "health",
+                title = "Health",
                 isLeftSided = true
             ),
             Category(
                 id = "business",
                 imageId = R.drawable.business,
                 backgroundColorId = R.color.orange,
-                title = "business",
+                title = "Business",
                 isLeftSided = false
             ),
             Category(
                 id = "technology",
                 imageId = R.drawable.technology,
                 backgroundColorId = R.color.light_blue,
-                title = "technology",
+                title = "Technology",
                 isLeftSided = true
             ),
             Category(
                 id = "science",
                 imageId = R.drawable.science,
                 backgroundColorId = R.color.yellow,
-                title = "science",
+                title = "Science",
                 isLeftSided = false
             )
 

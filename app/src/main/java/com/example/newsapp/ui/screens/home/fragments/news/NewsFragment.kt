@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.newsapp.api.ApiManager
+import com.example.newsapp.api.model.Article
 import com.example.newsapp.api.model.ArticlesResponse
 import com.example.newsapp.api.model.Source
 import com.example.newsapp.api.model.SourcesResponse
 import com.example.newsapp.databinding.FragmentNewsBinding
 import com.example.newsapp.ui.base.BaseFragment
+import com.example.newsapp.ui.model.Category
 import com.example.newsapp.ui.screens.home.adapters.NewsAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
@@ -18,9 +20,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NewsFragment : BaseFragment<FragmentNewsBinding>() {
+class NewsFragment (private var category : Category): BaseFragment<FragmentNewsBinding>() {
 
-    lateinit var adapter: NewsAdapter
+     var newsAdapter = NewsAdapter(emptyList())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -38,8 +40,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
     }
 
     private fun initRecyclerView() {
-        adapter = NewsAdapter(emptyList())
-        binding!!.newsRecyclerView.adapter = adapter
+        binding!!.newsRecyclerView.adapter = newsAdapter
     }
 
     private fun iniTabClickListener() {
@@ -67,7 +68,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
                 ) {
                     hideLoading()
                     if (responce.isSuccessful) {
-                        adapter.submitArticles(responce.body()!!.articles!!)
+                        newsAdapter.submitArticles(responce.body()!!.articles!!)
 
                     } else {
                         var articlesResponce: ArticlesResponse = Gson().fromJson(
@@ -93,7 +94,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
     private fun getSources() {
         showLoading()
         hideError()
-        ApiManager.webServices().getSources(ApiManager.API_KEY)
+        ApiManager.webServices().getSources(ApiManager.API_KEY , category.id)
             .enqueue(object : Callback<SourcesResponse> {
                 override fun onResponse(
                     p0: Call<SourcesResponse>,
@@ -148,7 +149,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
         for (i in 0 until binding!!.tabLayout.tabCount) {
             val tab = (binding!!.tabLayout.getChildAt(0) as ViewGroup).getChildAt(i)
             val layoutParams = tab.layoutParams as ViewGroup.MarginLayoutParams
-            layoutParams.setMargins(10, 0, 10, 0)  // Example margins
+            layoutParams.setMargins(15, 0, 15, 0)  // Example margins
             tab.layoutParams = layoutParams
         }
 
