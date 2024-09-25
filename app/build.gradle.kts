@@ -45,6 +45,11 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    ///ViewModel
+    implementation(libs.viewmodel)
+    implementation(libs.livedata)
+    ///coroutines
+    implementation(libs.kotlin.coroutines)
     //Retrofit
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)

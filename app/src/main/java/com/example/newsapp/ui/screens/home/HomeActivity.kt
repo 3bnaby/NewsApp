@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.newsapp.R
+import com.example.newsapp.data.utilis.InternetConnectionChecker
 import com.example.newsapp.databinding.ActivityHomeBinding
 import com.example.newsapp.ui.base.BaseActivity
 import com.example.newsapp.ui.screens.home.fragments.categories.CategoriesFragment
@@ -22,6 +23,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
+        //todo : enhance this line
+        InternetConnectionChecker.context = this
         showFragment(categoriesFragment)
         showSideMenu()
         onItemMenuClicked()

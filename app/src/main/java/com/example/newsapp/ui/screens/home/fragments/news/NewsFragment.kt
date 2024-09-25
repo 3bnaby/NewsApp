@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.newsapp.api.ApiManager
-import com.example.newsapp.api.model.Article
-import com.example.newsapp.api.model.ArticlesResponse
-import com.example.newsapp.api.model.Source
-import com.example.newsapp.api.model.SourcesResponse
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.newsapp.data.api.ApiManager
+import com.example.newsapp.data.api.model.Article
+import com.example.newsapp.data.api.model.ArticlesResponse
+import com.example.newsapp.data.api.model.Source
+import com.example.newsapp.data.api.model.SourcesResponse
 import com.example.newsapp.databinding.FragmentNewsBinding
 import com.example.newsapp.ui.base.BaseFragment
 import com.example.newsapp.ui.model.Category
@@ -20,13 +22,16 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NewsFragment (private var category : Category): BaseFragment<FragmentNewsBinding>() {
+class NewsFragment(private var category: Category) : BaseFragment<FragmentNewsBinding>() {
 
-     var newsAdapter = NewsAdapter(emptyList())
+    var newsAdapter = NewsAdapter(emptyList())
+    lateinit var viewModel: NewsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
+        viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
+
         binding = FragmentNewsBinding.inflate(inflater, container, false)
         return binding!!.root
     }
@@ -35,7 +40,8 @@ class NewsFragment (private var category : Category): BaseFragment<FragmentNewsB
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         iniTabClickListener()
-        getSources()
+        viewModel.getSources(category.id)
+        SetupObservers()
 
     }
 
@@ -46,7 +52,7 @@ class NewsFragment (private var category : Category): BaseFragment<FragmentNewsB
     private fun iniTabClickListener() {
         binding!!.tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                getArticles(tab!!.tag as String)
+                viewModel.getArticles(tab!!.tag as String)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -58,81 +64,6 @@ class NewsFragment (private var category : Category): BaseFragment<FragmentNewsB
         })
     }
 
-    private fun getArticles(tabId: String) {
-        showLoading()
-        hideError()
-        ApiManager.webServices().getArticles(ApiManager.API_KEY, tabId)
-            .enqueue(object : Callback<ArticlesResponse> {
-                override fun onResponse(
-                    p0: Call<ArticlesResponse>, responce: Response<ArticlesResponse>
-                ) {
-                    hideLoading()
-                    if (responce.isSuccessful) {
-                        newsAdapter.submitArticles(responce.body()!!.articles!!)
-
-                    } else {
-                        var articlesResponce: ArticlesResponse = Gson().fromJson(
-                            responce.errorBody()?.string(), ArticlesResponse::class.java
-                        )
-                        showError(articlesResponce.message ?: " ") {
-                            getArticles(tabId)
-                        }
-
-                    }
-                }
-
-                override fun onFailure(p0: Call<ArticlesResponse>, exception: Throwable) {
-                    showError(exception.localizedMessage ?: " ") {
-                        getArticles(tabId)
-                    }
-                }
-
-            })
-
-    }
-
-    private fun getSources() {
-        showLoading()
-        hideError()
-        ApiManager.webServices().getSources(ApiManager.API_KEY , category.id)
-            .enqueue(object : Callback<SourcesResponse> {
-                override fun onResponse(
-                    p0: Call<SourcesResponse>,
-                    responce: Response<SourcesResponse>
-                ) {
-                    hideLoading()
-                    if (responce.isSuccessful) {
-                        try {
-                            val sources = responce.body()!!.sources
-                            showTabs(sources!!)
-
-                        } catch (e: Throwable) {
-                            showError(e.message ?: "--") {
-                                getSources()
-                            }
-
-                        }
-
-                    } else {
-                        val errorBodyString = responce.errorBody()!!.string()
-                        val errorResponse: SourcesResponse = Gson().fromJson(
-                            errorBodyString, SourcesResponse::class.java
-                        )
-                        showError(errorResponse.message ?: "..") {
-                            getSources()
-                        }
-                    }
-                }
-
-                override fun onFailure(p0: Call<SourcesResponse>, exception: Throwable) {
-                    hideLoading()
-                    showError(exception.localizedMessage ?: "Something went wrong..") {
-                        getSources()
-                    }
-                }
-
-            })
-    }
 
     private fun showTabs(sources: List<Source?>) {
         for (source in sources) {
@@ -155,11 +86,11 @@ class NewsFragment (private var category : Category): BaseFragment<FragmentNewsB
 
     }
 
-    private fun showError(errorMessage: String, onRetryClick: () -> Unit) {
+    private fun showError(errorMessage: String, onRetryClick: (() -> Unit)? = null) {
         binding!!.errorView.root.visibility = View.VISIBLE
         binding!!.errorView.errorText.text = errorMessage
         binding!!.errorView.retryButton.setOnClickListener {
-            onRetryClick()
+            onRetryClick?.invoke()
         }
 
     }
@@ -177,4 +108,23 @@ class NewsFragment (private var category : Category): BaseFragment<FragmentNewsB
         binding!!.loaderView.visibility = View.INVISIBLE
     }
 
+
+    private fun SetupObservers() {
+        viewModel.isLoadingLiveData.observe(viewLifecycleOwner) {
+            if (it) showLoading()
+            else hideLoading()
+        }
+        viewModel.errorLiveData.observe(viewLifecycleOwner) {
+            if (it.isNullOrEmpty()) hideError()
+            else showError(it)
+        }
+        viewModel.sourcesLiveData.observe(viewLifecycleOwner) {
+            if (it.isNullOrEmpty()) return@observe
+            else showTabs(it)
+        }
+        viewModel.articlesLiveData.observe(viewLifecycleOwner) {
+            newsAdapter.submitArticles(it)
+        }
+
+    }
 }

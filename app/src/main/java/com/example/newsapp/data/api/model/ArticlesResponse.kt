@@ -1,15 +1,15 @@
-package com.example.newsapp.api.model
+package com.example.newsapp.data.api.model
 
 import com.google.gson.annotations.SerializedName
 
 data class ArticlesResponse(
 
-	@field:SerializedName("totalResults")
+    @field:SerializedName("totalResults")
 	val totalResults: Int? = null,
 
-	@field:SerializedName("articles")
+    @field:SerializedName("articles")
 	val articles: List<Article?>? = null,
 
-	@field:SerializedName("status")
+    @field:SerializedName("status")
 	val status: String? = null,
 ) : BaseResponse()
