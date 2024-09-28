@@ -11,7 +11,7 @@ class NewsLocalDataSource {
          return MyDataBase.getInstance().getSourcesDao().getSources(categoryId)
 
     }
-    suspend fun saveSources(sourcesResponse: List<Source?>){
+    suspend fun saveSources(sourcesResponse: List<Source>){
         MyDataBase.getInstance().getSourcesDao().insertSources(sourcesResponse)
 
     }
