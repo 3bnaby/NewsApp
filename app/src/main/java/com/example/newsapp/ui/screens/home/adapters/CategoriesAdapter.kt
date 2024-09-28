@@ -9,7 +9,7 @@ import com.example.newsapp.R
 import com.example.newsapp.databinding.ItemCategoryBinding
 import com.example.newsapp.ui.model.Category
 
-class CategoriesAdapter(var categories: List<Category> , var onItemClick :(Category) -> Unit) :
+class CategoriesAdapter(private var categories: List<Category>, private var onItemClick :(Category) -> Unit) :
     Adapter<CategoriesAdapter.CategoriesViewHolder>() {
 
 

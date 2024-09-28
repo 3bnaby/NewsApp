@@ -20,10 +20,10 @@ class NewsViewModel : ViewModel() {
         errorLiveData.value = null //hideError()
         viewModelScope.launch {
             try {
-                val sourcesResponse =
+                val sources =
                     newsRepo.getSources(categoryId)
                 isLoadingLiveData.value = false //hideLoading()
-                sourcesLiveData.value = sourcesResponse.sources!! // showTabs(sources!!)
+                sourcesLiveData.value = sources // showTabs(sources!!)
             } catch (exception: Throwable) {
                 errorLiveData.value = exception.localizedMessage ?: "Something went wrong.."
             }

@@ -1,7 +1,6 @@
 package com.example.newsapp.ui.screens.home
 
 import android.os.Bundle
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
@@ -23,8 +22,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
-        //todo : enhance this line
-        InternetConnectionChecker.context = this
+        //todo : Remove this line with something better
+        //InternetConnectionChecker.context = this  ///will use it in MyApplication Class
         showFragment(categoriesFragment)
         showSideMenu()
         onItemMenuClicked()

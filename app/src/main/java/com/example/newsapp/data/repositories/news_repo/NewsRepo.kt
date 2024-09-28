@@ -1,6 +1,7 @@
 package com.example.newsapp.data.repositories.news_repo
 
 import com.example.newsapp.data.api.model.ArticlesResponse
+import com.example.newsapp.data.api.model.Source
 import com.example.newsapp.data.api.model.SourcesResponse
 import com.example.newsapp.data.repositories.news_repo.data_sources.local_data_source.NewsLocalDataSource
 import com.example.newsapp.data.repositories.news_repo.data_sources.remote_data_sources.NewsRemoteDataSource
@@ -10,11 +11,11 @@ class NewsRepo {
     private var localDataSource = NewsLocalDataSource()
     private var remoteDataSource = NewsRemoteDataSource()
 
-    suspend fun getSources(categoryId: String): SourcesResponse {
+    suspend fun getSources(categoryId: String): List<Source?> {
         if (InternetConnectionChecker.isOnline()) {
             val sourceResponse = remoteDataSource.getSources(categoryId)
-            localDataSource.saveSources(categoryId, sourceResponse)
-            return sourceResponse
+            localDataSource.saveSources(sourceResponse.sources!!)
+            return sourceResponse.sources
 
         } else {
             return localDataSource.getSources(categoryId)

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.devtools.ksp") version "1.8.22-1.0.11"
 }
 
 android {
@@ -56,6 +57,11 @@ dependencies {
     implementation(libs.retrofit.logging)
     ///Glide
     implementation(libs.glide)
+    ///Room
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ///Ksp
+    ksp(libs.room.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
