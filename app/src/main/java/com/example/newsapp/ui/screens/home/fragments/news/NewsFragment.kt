@@ -6,25 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.newsapp.R
-import com.example.newsapp.data.api.ApiManager
-import com.example.newsapp.data.api.model.Article
-import com.example.newsapp.data.api.model.ArticlesResponse
-import com.example.newsapp.data.api.model.Source
-import com.example.newsapp.data.api.model.SourcesResponse
+import com.example.newsapp.data.api.model.SourceDM
 import com.example.newsapp.databinding.FragmentNewsBinding
+import com.example.newsapp.domain.model.Source
 import com.example.newsapp.ui.base.BaseFragment
 import com.example.newsapp.ui.model.Category
 import com.example.newsapp.ui.screens.home.adapters.NewsAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
-import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+
 @AndroidEntryPoint
 class NewsFragment(private var category: Category) : BaseFragment<FragmentNewsBinding>() {
 
@@ -70,11 +62,11 @@ class NewsFragment(private var category: Category) : BaseFragment<FragmentNewsBi
     }
 
 
-    private fun showTabs(sources: List<Source?>) {
+    private fun showTabs(sources: List<Source>) {
         for (source in sources) {
             val tab = binding!!.tabLayout.newTab()
-            tab.text = source?.name
-            tab.tag = source?.id
+            tab.text = source.name
+            tab.tag = source.id
             binding!!.tabLayout.addTab(tab)
         }
         setMargins()

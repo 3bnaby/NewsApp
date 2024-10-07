@@ -1,13 +1,12 @@
 package com.example.newsapp.data.api.model
 
-import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 @Entity
-data class Source(
+data class SourceDM(
 
 	@field:SerializedName("country")
 	val country: String? = null,

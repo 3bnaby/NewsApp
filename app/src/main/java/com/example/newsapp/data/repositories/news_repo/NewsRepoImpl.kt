@@ -1,43 +1,58 @@
 package com.example.newsapp.data.repositories.news_repo
 
-import com.example.newsapp.data.api.model.ArticlesResponse
-import com.example.newsapp.data.api.model.Source
 import com.example.newsapp.data.repositories.news_repo.data_sources.local_data_source.NewsLocalDataSource
-import com.example.newsapp.data.repositories.news_repo.data_sources.local_data_source.NewsLocalDataSourceImpl
 import com.example.newsapp.data.repositories.news_repo.data_sources.remote_data_sources.NewsRemoteDataSource
-import com.example.newsapp.data.repositories.news_repo.data_sources.remote_data_sources.NewsRemoteDataSourceImpl
 import com.example.newsapp.data.utilis.InternetConnectionChecker
+import com.example.newsapp.domain.mappers.ArticleMapper
+import com.example.newsapp.domain.mappers.SourceMapper
+import com.example.newsapp.domain.model.ApiResult
+import com.example.newsapp.domain.model.Article
+import com.example.newsapp.domain.model.Source
+import com.example.newsapp.domain.repositories.NewsRepo
 import javax.inject.Inject
 
-class NewsRepoImpl @Inject constructor(private var localDataSource: NewsLocalDataSource,
-                                      private var remoteDataSource: NewsRemoteDataSource) : NewsRepo {
+class NewsRepoImpl @Inject constructor(
+    private var localDataSource: NewsLocalDataSource,
+    private var remoteDataSource: NewsRemoteDataSource,
+    private var sourceMapper: SourceMapper,
+    private var articleMapper: ArticleMapper
+) : NewsRepo {
 
 
-    override suspend fun getSources(categoryId: String): List<Source> {
-        if (InternetConnectionChecker.isOnline()) {
-            val sourceResponse = remoteDataSource.getSources(categoryId)
-            localDataSource.saveSources(sourceResponse.sources!!)
-            return sourceResponse.sources
+    override suspend fun getSources(categoryId: String): ApiResult<List<Source>> {
+        return if (InternetConnectionChecker.isOnline()) {
+            when (val result = remoteDataSource.getSources(categoryId)) {
+                is ApiResult.Error -> return result
+                is ApiResult.Success -> {
+                    localDataSource.saveSources(result.data.sources!!)
+                    ApiResult.Success(sourceMapper.mapSourcesDMToSources(result.data.sources))
+                }
+            }
 
         } else {
-            return localDataSource.getSources(categoryId)
-        }
-
-    }
-
-    override suspend fun getArticles(sourceId: String): ArticlesResponse {
-        try {
-            if (InternetConnectionChecker.isOnline()) {
-                val articleResponse = remoteDataSource.getArticles(sourceId)
-                return articleResponse
-
-            } else {
-                return localDataSource.getArticles(sourceId)
+            when (val result = localDataSource.getSources(categoryId)) {
+                is ApiResult.Error -> return result
+                is ApiResult.Success -> ApiResult.Success(sourceMapper.mapSourcesDMToSources(result.data))
             }
-        } catch (e: Exception) {
-            throw e
+        }
+    }
+
+    override suspend fun getArticles(sourceId: String): ApiResult<List<Article>> {
+        return if (InternetConnectionChecker.isOnline()) {
+            when (val result = remoteDataSource.getArticles(sourceId)) {
+                is ApiResult.Error -> return result
+                is ApiResult.Success -> {
+                    ApiResult.Success(articleMapper.mapArticlesDMToArticles(result.data.articles!!))
+                }
+            }
+
+        } else{
+            when(val result = localDataSource.getArticles("")){
+                is ApiResult.Error -> return result
+                is ApiResult.Success -> ApiResult.Success(articleMapper.mapArticlesDMToArticles(result.data.articles!!))
+            }
+
         }
 
-
-    }
+        }
 }

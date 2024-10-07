@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.bumptech.glide.Glide
 import com.example.newsapp.R
-import com.example.newsapp.data.api.model.Article
+import com.example.newsapp.data.api.model.ArticleDM
 import com.example.newsapp.databinding.ItemNewsBinding
+import com.example.newsapp.domain.model.Article
 
 class NewsAdapter(var articles: List<Article?>) : Adapter<NewsAdapter.NewsViewHolder>() {
 

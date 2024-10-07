@@ -2,8 +2,9 @@ package com.example.newsapp.data.repositories.news_repo.data_sources.remote_data
 
 import com.example.newsapp.data.api.model.ArticlesResponse
 import com.example.newsapp.data.api.model.SourcesResponse
+import com.example.newsapp.domain.model.ApiResult
 
 interface NewsRemoteDataSource {
-    suspend fun getSources(categoryId :String) : SourcesResponse
-    suspend fun getArticles(sourceId : String) : ArticlesResponse
+    suspend fun getSources(categoryId :String) : ApiResult<SourcesResponse>
+    suspend fun getArticles(sourceId : String) : ApiResult<ArticlesResponse>
 }

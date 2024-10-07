@@ -2,7 +2,7 @@ package com.example.newsapp.data.api.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Article(
+data class ArticleDM(
 
     @field:SerializedName("publishedAt")
 	val publishedAt: String? = null,
@@ -17,7 +17,7 @@ data class Article(
 	val description: String? = null,
 
     @field:SerializedName("source")
-	val source: Source? = null,
+	val source: SourceDM? = null,
 
     @field:SerializedName("title")
 	val title: String? = null,

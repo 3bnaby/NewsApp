@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.newsapp.data.api.model.Source
+import com.example.newsapp.data.api.model.SourceDM
 
-@Database(entities = [Source::class], version = 1)
+@Database(entities = [SourceDM::class], version = 1)
 abstract class MyDataBase() : RoomDatabase() {
 
     abstract fun getSourcesDao(): SourcesDao
