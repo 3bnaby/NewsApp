@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    app:cardElevation="0dp"
-    android:padding="10dp"
-    android:layout_margin="10dp"
-    app:cardCornerRadius="0dp"
-    app:cardBackgroundColor="@android:color/transparent"
-    app:strokeWidth="0dp"
-    android:id="@+id/item_category_container"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    >
+    <data>
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="0dp"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="0dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:strokeWidth="0dp"
+        android:id="@+id/item_category_container"
+
+        >
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            tools:background="@drawable/left_side_item_category_rounded_corners"
-            >
+            tools:background="@drawable/left_side_item_category_rounded_corners">
+
             <ImageView
                 android:id="@+id/item_category_image"
                 android:layout_width="100dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center"
                 tools:src="@drawable/sports"
-                android:adjustViewBounds="true"
-                />
+                android:adjustViewBounds="true" />
 
             <TextView
                 android:id="@+id/item_category_name_tv"
@@ -40,13 +44,13 @@
                 android:textColor="@color/white"
                 tools:text="sports"
                 android:textSize="22sp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
 
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
+</layout>
 
 
 

@@ -3,6 +3,7 @@ package com.example.newsapp.ui.screens.home
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.view.GravityCompat
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.newsapp.R
 import com.example.newsapp.data.utilis.InternetConnectionChecker
@@ -20,10 +21,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityHomeBinding.inflate(layoutInflater)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
         setContentView(binding!!.root)
-        //todo : Remove this line with something better
-        //InternetConnectionChecker.context = this  ///will use it in MyApplication Class
         showFragment(categoriesFragment)
         showSideMenu()
         onItemMenuClicked()

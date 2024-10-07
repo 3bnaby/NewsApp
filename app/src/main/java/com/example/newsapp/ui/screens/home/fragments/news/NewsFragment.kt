@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.newsapp.R
 import com.example.newsapp.data.api.ApiManager
 import com.example.newsapp.data.api.model.Article
 import com.example.newsapp.data.api.model.ArticlesResponse
@@ -32,7 +34,8 @@ class NewsFragment(private var category: Category) : BaseFragment<FragmentNewsBi
     ): View {
         viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
 
-        binding = FragmentNewsBinding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_news, container, false)
+        binding!!.vm = viewModel
         return binding!!.root
     }
 
@@ -99,21 +102,21 @@ class NewsFragment(private var category: Category) : BaseFragment<FragmentNewsBi
         binding!!.errorView.root.visibility = View.INVISIBLE
     }
 
-    private fun showLoading() {
-        binding!!.loaderView.visibility = View.VISIBLE
-
-    }
-
-    private fun hideLoading() {
-        binding!!.loaderView.visibility = View.INVISIBLE
-    }
+//    private fun showLoading() {
+//        binding!!.loaderView.visibility = View.VISIBLE
+//
+//    }
+//
+//    private fun hideLoading() {
+//        binding!!.loaderView.visibility = View.INVISIBLE
+//    }
 
 
     private fun SetupObservers() {
-        viewModel.isLoadingLiveData.observe(viewLifecycleOwner) {
+        /*viewModel.isLoadingLiveData.observe(viewLifecycleOwner) {
             if (it) showLoading()
             else hideLoading()
-        }
+        }*/
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
             if (it.isNullOrEmpty()) hideError()
             else showError(it)

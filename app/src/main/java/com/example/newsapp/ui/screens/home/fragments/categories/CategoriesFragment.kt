@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentCategoriesBinding
 import com.example.newsapp.ui.base.BaseFragment
 import com.example.newsapp.ui.model.Category
@@ -25,7 +27,7 @@ class CategoriesFragment ( onCategoryClick : (Category) -> Unit) : BaseFragment<
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCategoriesBinding.inflate(inflater , container , false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_categories, container , false)
         return binding!!.root
     }
     private fun initRecyclerView (){

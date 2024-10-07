@@ -1,5 +1,6 @@
 package com.example.newsapp.data.api.model
 
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -24,7 +25,7 @@ data class Source(
 	@ColumnInfo
 	@PrimaryKey
 	@field:SerializedName("id")
-	val id: String? = null,
+	val id: String,
 
 	@ColumnInfo
 	@field:SerializedName("category")

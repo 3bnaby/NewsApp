@@ -1,64 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.screens.home.fragments.NewsContent.NewsContentFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/news_image"
+    <data>
+
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:scaleType="fitXY"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent"
-        tools:src="@tools:sample/backgrounds/scenic"
-        android:layout_marginTop="5dp"
-        />
-    <TextView
-        android:id="@+id/news_source_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@{article.author}"
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="10dp"
-        android:background="@color/light_grey"
-        />
-    <TextView
-        android:id="@+id/news_title_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@{article.title}"
-        android:layout_marginTop="5dp"
-        android:layout_marginHorizontal="10dp"
-        android:background="@color/light_grey"
-        />
-    <TextView
-        android:id="@+id/news_date_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@{article.publishedAt}"
-        android:layout_marginTop="5dp"
-        android:layout_marginHorizontal="10dp"
-        android:background="@color/light_grey"
-        />
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        >
+        android:layout_height="match_parent"
+        tools:context=".ui.screens.home.fragments.NewsContent.NewsContentFragment">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/news_image"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:scaleType="fitXY"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent"
+            tools:src="@tools:sample/backgrounds/scenic"
+            android:layout_marginTop="5dp" />
 
         <TextView
-            android:id="@+id/news_content_textView"
-            android:layout_width="match_parent"
+            android:id="@+id/news_source_textView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@color/light_grey" />
+
+        <TextView
+            android:id="@+id/news_title_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginHorizontal="10dp"
-            android:background="@color/white"
-            />
+            android:background="@color/light_grey" />
 
-    </ScrollView>
+        <TextView
+            android:id="@+id/news_date_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@color/light_grey" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/news_content_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_marginTop="5dp"
+                android:layout_marginHorizontal="10dp"
+                android:background="@color/white" />
+
+        </ScrollView>
 
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

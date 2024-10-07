@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("com.google.devtools.ksp") version "1.8.22-1.0.11"
+    id("kotlin-kapt")
 }
 
 android {
@@ -35,7 +35,8 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
-        viewBinding = true
+//        viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -60,8 +61,8 @@ dependencies {
     ///Room
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
-    ///Ksp
-    ksp(libs.room.compiler)
+    // To use Kotlin annotation processing tool (kapt)
+    kapt(libs.room.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
