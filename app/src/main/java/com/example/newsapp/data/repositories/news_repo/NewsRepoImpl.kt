@@ -7,11 +7,10 @@ import com.example.newsapp.data.repositories.news_repo.data_sources.local_data_s
 import com.example.newsapp.data.repositories.news_repo.data_sources.remote_data_sources.NewsRemoteDataSource
 import com.example.newsapp.data.repositories.news_repo.data_sources.remote_data_sources.NewsRemoteDataSourceImpl
 import com.example.newsapp.data.utilis.InternetConnectionChecker
+import javax.inject.Inject
 
-class NewsRepoImpl(
-    private var localDataSource: NewsLocalDataSource,
-    private var remoteDataSource: NewsRemoteDataSource
-) : NewsRepo {
+class NewsRepoImpl @Inject constructor(private var localDataSource: NewsLocalDataSource,
+                                      private var remoteDataSource: NewsRemoteDataSource) : NewsRepo {
 
 
     override suspend fun getSources(categoryId: String): List<Source> {

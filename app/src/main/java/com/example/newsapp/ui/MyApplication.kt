@@ -3,7 +3,9 @@ package com.example.newsapp.ui
 import android.app.Application
 import com.example.newsapp.data.database.dao.MyDataBase
 import com.example.newsapp.data.utilis.InternetConnectionChecker
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class MyApplication : Application() {
 
     override fun onCreate() {

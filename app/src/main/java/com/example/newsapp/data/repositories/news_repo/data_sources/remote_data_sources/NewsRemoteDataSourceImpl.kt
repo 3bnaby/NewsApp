@@ -4,8 +4,9 @@ import com.example.newsapp.data.api.ApiManager
 import com.example.newsapp.data.api.WebServices
 import com.example.newsapp.data.api.model.ArticlesResponse
 import com.example.newsapp.data.api.model.SourcesResponse
+import javax.inject.Inject
 
-class NewsRemoteDataSourceImpl(var webServices: WebServices) : NewsRemoteDataSource {
+class NewsRemoteDataSourceImpl@Inject constructor(var webServices: WebServices) : NewsRemoteDataSource {
 
     override suspend fun getSources(categoryId :String) : SourcesResponse{
         return webServices.getSources(category = categoryId)

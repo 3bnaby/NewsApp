@@ -12,7 +12,7 @@ abstract class MyDataBase() : RoomDatabase() {
     abstract fun getSourcesDao(): SourcesDao
 
     companion object{
-        private const val DATABASE_NAME = "database_name"
+        const val DATABASE_NAME = "database_name"
         private var  myDataBase : MyDataBase? = null
 
         fun init(context: Context){

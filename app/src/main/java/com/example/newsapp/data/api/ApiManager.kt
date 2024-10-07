@@ -15,12 +15,12 @@ class ApiManager {
         private fun getInstance(): Retrofit {
             if (retrofit == null) {
 
-                val logging = HttpLoggingInterceptor { Log.e("API_CALL", it) }
-                logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-
-                var okHttpClient = OkHttpClient.Builder().addInterceptor(logging).build()
-                retrofit = Retrofit.Builder().baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create()).client(okHttpClient).build()
+//                val logging = HttpLoggingInterceptor { Log.e("API_CALL", it) }
+//                logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+//
+//                var okHttpClient = OkHttpClient.Builder().addInterceptor(logging).build()
+//                retrofit = Retrofit.Builder().baseUrl(BASE_URL)
+//                    .addConverterFactory(GsonConverterFactory.create()).client(okHttpClient).build()
             }
             return retrofit!!
         }

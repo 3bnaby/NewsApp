@@ -3,8 +3,9 @@ package com.example.newsapp.data.repositories.news_repo.data_sources.local_data_
 import com.example.newsapp.data.api.model.ArticlesResponse
 import com.example.newsapp.data.api.model.Source
 import com.example.newsapp.data.database.dao.MyDataBase
+import javax.inject.Inject
 
-class NewsLocalDataSourceImpl(var myDataBase: MyDataBase) : NewsLocalDataSource {
+class NewsLocalDataSourceImpl@Inject constructor(var myDataBase: MyDataBase) : NewsLocalDataSource {
 
     override suspend fun getSources(categoryId: String): List<Source> {
         return myDataBase.getSourcesDao().getSources(categoryId)

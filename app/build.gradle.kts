@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
+
 }
 
 android {
@@ -63,7 +65,18 @@ dependencies {
     implementation(libs.room.ktx)
     // To use Kotlin annotation processing tool (kapt)
     kapt(libs.room.compiler)
+    ///Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+    ///
+    implementation("androidx.activity:activity-ktx:1.9.2")
+    implementation("androidx.fragment:fragment-ktx:1.8.3")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true}

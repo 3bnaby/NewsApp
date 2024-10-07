@@ -11,8 +11,9 @@ import com.example.newsapp.databinding.ActivityHomeBinding
 import com.example.newsapp.ui.base.BaseActivity
 import com.example.newsapp.ui.screens.home.fragments.categories.CategoriesFragment
 import com.example.newsapp.ui.screens.home.fragments.news.NewsFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class HomeActivity : BaseActivity<ActivityHomeBinding>() {
     private val categoriesFragment = CategoriesFragment {
         showFragment(NewsFragment(it))

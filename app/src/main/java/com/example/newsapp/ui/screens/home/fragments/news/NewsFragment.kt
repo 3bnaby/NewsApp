@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.newsapp.R
@@ -20,19 +21,20 @@ import com.example.newsapp.ui.screens.home.adapters.NewsAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.gson.Gson
+import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
+@AndroidEntryPoint
 class NewsFragment(private var category: Category) : BaseFragment<FragmentNewsBinding>() {
 
     var newsAdapter = NewsAdapter(emptyList())
-    lateinit var viewModel: NewsViewModel
+     private val viewModel: NewsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
+//        viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_news, container, false)
         binding!!.vm = viewModel
