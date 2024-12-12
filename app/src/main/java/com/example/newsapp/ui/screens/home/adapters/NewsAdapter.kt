@@ -24,6 +24,9 @@ class NewsAdapter(var articles: List<Article?>) : Adapter<NewsAdapter.NewsViewHo
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val article = articles[position]
         holder.binding.article = article
+        holder.binding.root.setOnClickListener {
+            onArticleClick?.invoke(article!!)
+        }
 //        Glide.with(holder.binding.root).load(article?.urlToImage).into(holder.binding.newsImage)
     }
 
@@ -33,5 +36,7 @@ class NewsAdapter(var articles: List<Article?>) : Adapter<NewsAdapter.NewsViewHo
     }
 
     class NewsViewHolder(val binding: ItemNewsBinding) : ViewHolder(binding.root)
+
+    var onArticleClick : ((article:Article) -> Unit)? = null
 
 }

@@ -13,6 +13,7 @@ import com.example.newsapp.domain.model.Source
 import com.example.newsapp.ui.base.BaseFragment
 import com.example.newsapp.ui.model.Category
 import com.example.newsapp.ui.screens.home.adapters.NewsAdapter
+import com.example.newsapp.ui.screens.home.fragments.NewsContent.NewsContentFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,6 +45,12 @@ class NewsFragment(private var category: Category) : BaseFragment<FragmentNewsBi
 
     private fun initRecyclerView() {
         binding!!.newsRecyclerView.adapter = newsAdapter
+        newsAdapter.onArticleClick = {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, NewsContentFragment())
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     private fun iniTabClickListener() {
